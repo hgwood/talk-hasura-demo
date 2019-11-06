@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:12
+    ports:
+      - 5433:5432
+    volumes:
+      - ./:/sql
+
+  hasura:
+    image: hasura/graphql-engine:pull2395-eb045d9b
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres@postgres:5432/postgres
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ADMIN_SECRET: dev
+    ports:
+      - "10266:8080"
+    volumes:
+      - ./.hasura:/hasura-migrations
+    depends_on:
+      - postgres
+
+  employees:
+    image: hasura/graphql-engine:v1.0.0-beta.6
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres@postgres-employees:5432/postgres
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+    ports:
+      - "11266:8080"
+    depends_on:
+      - postgres
+
+  postgres-employees:
+    image: postgres:12
+    ports:
+      - 5434:5432
+    volumes:
+      - ./:/sql
+
+  webhooks:
+    image: node:12-alpine
+    ports:
+      - "3000:3000"
+    working_dir: /app
+    command: npm start -- --legacy-watch
+    volumes:
+      - ./response-validator:/app

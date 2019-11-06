@@ -1,0 +1,16 @@
+{
+  "name": "response-validator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "polka": "^0.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
