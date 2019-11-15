@@ -2,26 +2,25 @@ drop table if exists employees cascade;
 
 create table employees (
   id serial primary key,
-  first_name text not null,
-  last_name text not null,
+  name text not null,
   manager_id int references employees (id) on delete set null
 );
 
 truncate table employees;
 
 insert into employees
-  (first_name, last_name, manager_id)
+  (name, manager_id)
   values
-    ('Benjamin', 'Burnley', null),
-    ('Aaron', 'Fink', 1),
-    ('Mark', 'Klepaski', 1),
-    ('Jeremy', 'Hummel', 1),
-    ('Chester', 'Bennington', null),
-    ('Mike', 'Shinoda', 5),
-    ('Brad', 'Delson', 5),
-    ('Dave', 'Farrell', 5),
-    ('Joe', 'Hahn', 5),
-    ('Rob', 'Bourdon', 5);
+    ('Benjamin Burnley', null),
+    ('Aaron Fink', 1),
+    ('Mark Klepaski', 1),
+    ('Jeremy Hummel', 1),
+    ('Chester Bennington', null),
+    ('Mike Shinoda', 5),
+    ('Brad Delson', 5),
+    ('Dave Farrell', 5),
+    ('Joe Hahn', 5),
+    ('Rob Bourdon', 5);
 
 drop table if exists moods;
 
